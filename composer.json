@@ -1,0 +1,28 @@
+{
+    "name": "assegaiphp/forms",
+    "description": "A simple PHP library for dealing with HTML form submissions.",
+    "type": "library",
+    "require-dev": {
+        "pestphp/pest": "^2.16"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Assegai\\Forms\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrew Masiye",
+            "email": "amasiye313@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
