@@ -2,18 +2,21 @@
 
 namespace Assegai\Forms\Interfaces;
 
+use Assegai\Forms\Exceptions\InvalidFormException;
+
 /**
  * Interface for form parsers.
  */
-interface FormParserInterface
+interface FormDecoderInterface
 {
   /**
-   * Parses a form string into an array of key-value pairs.
+   * Decodes a form string into an array of key-value pairs.
    *
    * @param string $form The form string.
    * @return FormInterface The form data.
+   * @throws InvalidFormException If the form is invalid.
    */
-  public function parse(string $form): FormInterface;
+  public function decode(string $form): FormInterface;
 
   /**
    * Checks if the form is valid.
@@ -28,6 +31,7 @@ interface FormParserInterface
    *
    * @param string $form The form string.
    * @return array The form fields.
+   * @throws InvalidFormException If the form is invalid.
    */
   public function getFormFields(string $form): array;
 
@@ -35,7 +39,7 @@ interface FormParserInterface
    * Gets the form boundary. This is used to separate the form fields.
    *
    * @param string $form The form string.
-   * @return string The form boundary.
+   * @return string|false The form boundary or false if the form does not have a boundary.
    */
-  function getBoundary(string $form): string;
+  function getBoundary(string $form): string|false;
 }
