@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3906bef2a5bb13571301d71d2c68c94",
+    "content-hash": "4ebfea42bccbccaada1a1b5029366fa5",
     "packages": [
         {
             "name": "arubacao/tld-checker",
@@ -68,6 +68,52 @@
                 "source": "https://github.com/arubacao/tld-checker/tree/1.2.195"
             },
             "time": "2023-08-27T04:01:08+00:00"
+        },
+        {
+            "name": "assegaiphp/collections",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/assegaiphp/collections.git",
+                "reference": "d19a002c41ed6c2f2b2602418e8de827f10b2e8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/assegaiphp/collections/zipball/d19a002c41ed6c2f2b2602418e8de827f10b2e8c",
+                "reference": "d19a002c41ed6c2f2b2602418e8de827f10b2e8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Util/Functions.php"
+                ],
+                "psr-4": {
+                    "Assegai\\Collections\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Masiye",
+                    "email": "andrew.masiye@assegaiphp.com"
+                }
+            ],
+            "description": "The assegaiphp/collections package is a powerful tool for creating and managing groups of related objects in your AssegaiPHP projects. With this library, you can easily organize and manipulate data in a variety of ways, such as arrays, lists, sets, and maps. The package offers a wide range of methods for adding, removing, and manipulating items, as well as sorting, searching, and filtering your collections. It is fully compatible with PHP 7.x and above and is designed to be lightweight and easy to use. Whether you're building a web application, a CLI tool, or a standalone script, assegaiphp/collections is the perfect choice for working with data. With its simple and intuitive interface, you can easily start working with collections in your project right away.",
+            "support": {
+                "issues": "https://github.com/assegaiphp/collections/issues",
+                "source": "https://github.com/assegaiphp/collections/tree/0.3.2"
+            },
+            "time": "2023-07-15T09:26:04+00:00"
         },
         {
             "name": "assegaiphp/validation",

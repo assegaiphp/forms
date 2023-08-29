@@ -19,7 +19,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "assegaiphp/validation": "^0.3.2"
+        "assegaiphp/validation": "^0.3.2",
+        "assegaiphp/collections": "^0.3.2"
     },
     "config": {
         "allow-plugins": {
