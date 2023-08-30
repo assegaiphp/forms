@@ -2,6 +2,7 @@
 
 namespace Assegai\Forms\Interfaces;
 
+use Assegai\Collections\ItemList;
 use Assegai\Forms\Exceptions\InvalidFormException;
 
 /**
@@ -30,10 +31,10 @@ interface FormDecoderInterface
    * Gets the form fields.
    *
    * @param string $form The form string.
-   * @return array The form fields.
+   * @return ItemList<FormFieldInterface> The form fields.
    * @throws InvalidFormException If the form is invalid.
    */
-  public function getFormFields(string $form): array;
+  public function getFormFields(string $form): ItemList;
 
   /**
    * Gets the form boundary. This is used to separate the form fields.

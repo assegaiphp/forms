@@ -2,8 +2,10 @@
 
 namespace Assegai\Forms;
 
+use Assegai\Collections\ItemList;
 use Assegai\Forms\Exceptions\InvalidFormException;
 use Assegai\Forms\Interfaces\FormDecoderInterface;
+use Assegai\Forms\Interfaces\FormFieldInterface;
 use Assegai\Forms\Interfaces\FormInterface;
 
 /**
@@ -65,7 +67,7 @@ class FormDecoder implements FormDecoderInterface
   /**
    * @inheritDoc
    */
-  public function getFormFields(string $form): array
+  public function getFormFields(string $form): ItemList
   {
     $boundary = $this->getBoundary($form);
 
@@ -100,7 +102,7 @@ class FormDecoder implements FormDecoderInterface
       $fields[$key] = $value;
     }
 
-    return $fields;
+    return new ItemList(FormFieldInterface::class, $fields);
   }
 
   /**
