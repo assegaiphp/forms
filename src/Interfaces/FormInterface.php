@@ -27,10 +27,10 @@ interface FormInterface extends RenderableInterface
   /**
    * Gets a value from the form.
    *
-   * @param string $name The name of the value to get.
+   * @param string $fieldName The name of the value to get.
    * @return mixed The value if it exists, null otherwise.
    */
-  public function get(string $name): mixed;
+  public function getFieldValue(string $fieldName): mixed;
 
   /**
    * Sets the value of a form field.

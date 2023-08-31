@@ -26,7 +26,7 @@ it('can check if a form has a specific value', function () {
     ->and($form->has($invalidFieldName))->toBeFalse();
 });
 
-it('can retrieve any set field value', function () {
+it('can retrieve the value of any field', function () {
   $validStringValue = 'Shaka';
   $validIntValue = 23;
 
@@ -35,12 +35,12 @@ it('can retrieve any set field value', function () {
 
   $form = new Form(method: HttpMethod::POST, selector: '#test-form');
 
-  $name = $form->get('name');
-  $age = $form->get('age');
+  $name = $form->getFieldValue('name');
+  $age = $form->getFieldValue('age');
 
   expect($name)->toBe($validStringValue)
     ->and($age)->toBe($validIntValue)
-    ->and($form->get('email'))->toBeNull();
+    ->and($form->getFieldValue('email'))->toBeNull();
 });
 
 it('can set fields to specific values', function () {
@@ -52,8 +52,8 @@ it('can set fields to specific values', function () {
   $form->set('name', $validStringValue);
   $form->set('age', $validIntValue);
 
-  expect($form->get('name'))->toBe($validStringValue)
-    ->and($form->get('age'))->toBe($validIntValue);
+  expect($form->getFieldValue('name'))->toBe($validStringValue)
+    ->and($form->getFieldValue('age'))->toBe($validIntValue);
 });
 
 it('can list all the field with their values', function () {
@@ -122,3 +122,11 @@ it('can be represented as an associative array', function () {
     'encodingType' => FormEncodingType::MULTIPART_FORM_DATA->value,
   ]);
 });
+
+it('can return it\'s render output as a string', function () {
+  $form = new Form();
+  $form->set('name', 'Shaka');
+  $output = $form->render();
+
+  expect($output)->toBe('<form method="POST" action="" enctype="multipart/form-data"></form>');
+})->skip('Not implemented yet');
