@@ -4,6 +4,8 @@ namespace Assegai\Forms;
 
 use Assegai\Collections\ItemList;
 use Assegai\Forms\Exceptions\InvalidFormException;
+use Assegai\Forms\FormControls\NumericField;
+use Assegai\Forms\FormControls\TextField;
 use Assegai\Forms\Interfaces\FormDecoderInterface;
 use Assegai\Forms\Interfaces\FormFieldInterface;
 use Assegai\Forms\Interfaces\FormInterface;
@@ -50,24 +52,37 @@ class FormDecoder implements FormDecoderInterface
     }
 
     # Ensure the form has at least one field.
+    if (!str_contains($form, 'Content-Disposition: form-data; name="'))
+    {
+      return false;
+    }
 
     # Ensure the form has a valid boundary.
+    // TODO: Implement boundary validation.
 
-    # Ensure the form has a valid field.
-
-    # Ensure the form has a valid field name.
-
-    # Ensure the form has a valid field value.
+    # Ensure the form has a valid field name and value.
+    if (!preg_match('/Content-Disposition: form-data; name=\"[a-zA-Z][\w\-_]+\"\n\n.*/', $form))
+    {
+      return false;
+    }
 
     # Ensure the form has a valid field boundary.
+    if (!preg_match('/Content-Disposition: form-data; name=\"[a-zA-][\w\-]+\"\n\n[\w\W]*\-\-/', $form))
+    {
+      return false;
+    }
 
     return true;
   }
 
   /**
-   * @inheritDoc
+   * Returns the form fields as a key-value pair array.
+   *
+   * @param string $form The form to get the fields from.
+   * @return array<FormFieldInterface> The form fields.
+   * @throws InvalidFormException
    */
-  public function getFormFields(string $form): ItemList
+  public function getFormFieldsAsArray(string $form): array
   {
     $boundary = $this->getBoundary($form);
 
@@ -99,8 +114,21 @@ class FormDecoder implements FormDecoderInterface
       {
         $value = $matches[1];
       }
-      $fields[$key] = $value;
+      $fields[$key] = match(true) {
+        is_numeric($value) => new NumericField(name: $key, value: $value),
+        default => new TextField(name: $key, value: $value)
+      };
     }
+
+    return $fields;
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public function getFormFields(string $form): ItemList
+  {
+    $fields = $this->getFormFieldsAsArray($form);
 
     return new ItemList(FormFieldInterface::class, $fields);
   }
