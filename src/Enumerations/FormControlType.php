@@ -10,6 +10,7 @@ enum FormControlType: string
   case TEXT = 'text';
   case LONG_TEXT = 'long-text';
   case SELECT = 'select';
+  case NUMERIC = 'numeric';
 
   public function getElementType(): FormControlElementType
   {

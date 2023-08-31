@@ -2,7 +2,6 @@
 
 namespace Assegai\Forms\Interfaces;
 
-use Assegai\Validation\Interfaces\IValidationRule as ValidationRuleInterface;
 use Stringable;
 
 /**
@@ -38,17 +37,17 @@ interface FormFieldInterface extends Stringable
   /**
    * Returns the rules of the form field.
    *
-   * @return ValidationRuleInterface[] The rules of the form field.
+   * @return string[] The rules of the form field.
    */
   public function getValidationRules(): array;
 
   /**
    * Adds a rule to the form field.
    *
-   * @param ValidationRuleInterface ...$rules The rules to add.
+   * @param string ...$rules
    * @return void
    */
-  public function addValidationRules(ValidationRuleInterface ...$rules): void;
+  public function addValidationRules(string ...$rules): void;
 
   /**
    * Validates the form field.
@@ -63,4 +62,11 @@ interface FormFieldInterface extends Stringable
    * @return bool True if the form field is valid, false otherwise.
    */
   public function isValid(): bool;
+
+  /**
+   * Returns the errors of the form field.
+   *
+   * @return string[] The errors of the form field.
+   */
+  public function getErrors(): array;
 }
