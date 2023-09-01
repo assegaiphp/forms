@@ -2,35 +2,75 @@
 
 namespace Assegai\Forms\Interfaces;
 
+use Assegai\Collections\ItemList;
+
 /**
  * FormInterface is the interface that should be implemented by all form DTOs.
  */
-interface FormInterface
+interface FormInterface extends RenderableInterface
 {
   /**
-   * Determines if the form has a key.
+   * Determines if the form has been submitted.
    *
-   * @param string $key The key to check.
+   * @return bool True if the form has been submitted, false otherwise.
+   */
+  public function isSubmitted(): bool;
+
+  /**
+   * Determines if the form has a field with the given name.
+   *
+   * @param string $name The name of the field.
    * @return bool True if the form has the key, false otherwise.
    */
-  public function has(string $key): bool;
+  public function has(string $name): bool;
 
   /**
    * Gets a value from the form.
    *
-   * @param string $key The key to get.
+   * @param string $fieldName The name of the value to get.
    * @return mixed The value if it exists, null otherwise.
    */
-  public function get(string $key): mixed;
+  public function getFieldValue(string $fieldName): mixed;
 
   /**
-   * Sets a value in the form.
+   * Sets the value of a form field.
    *
-   * @param string $key The key to set.
+   * @param string $name The name of the field to set.
    * @param mixed $value The value to set.
    * @return void
    */
-  public function set(string $key, mixed $value): void;
+  public function set(string $name, mixed $value): void;
+
+  /**
+   * Adds a field to the form.
+   *
+   * @param FormFieldInterface $field The field to add.
+   * @return void
+   */
+  public function addField(FormFieldInterface $field): void;
+
+  /**
+   * Removes a field from the form.
+   *
+   * @param string $name The name of the field to remove.
+   * @return void
+   */
+  public function removeField(string $name): void;
+
+  /**
+   * Returns a field from the form.
+   *
+   * @param string $name The name of the field to return.
+   * @return FormFieldInterface|null The field.
+   */
+  public function getField(string $name): ?FormFieldInterface;
+
+  /**
+   * Returns all the form fields.
+   *
+   * @return ItemList<FormFieldInterface> The form fields.
+   */
+  public function getAllFields(): ItemList;
 
   /**
    * Returns all the form values.
@@ -42,9 +82,16 @@ interface FormInterface
   /**
    * Validates the form.
    *
+   * @return void
+   */
+  public function validate(): void;
+
+  /**
+   * Determines if the form is valid.
+   *
    * @return bool True if the form is valid, false otherwise.
    */
-  public function validate(): bool;
+  public function isValid(): bool;
 
   /**
    * Returns the form errors.
