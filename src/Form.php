@@ -14,6 +14,9 @@ use Assegai\Forms\Interfaces\FormFieldInterface;
 use Assegai\Forms\Interfaces\FormInterface;
 use Exception;
 
+/**
+ * Class Form. This class is used to create a form.
+ */
 class Form implements FormInterface
 {
   /**
