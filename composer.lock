@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ebfea42bccbccaada1a1b5029366fa5",
+    "content-hash": "e5b58b1afcb8b4e504c845d2fc51d66c",
     "packages": [
         {
             "name": "arubacao/tld-checker",
@@ -114,6 +114,54 @@
                 "source": "https://github.com/assegaiphp/collections/tree/0.3.2"
             },
             "time": "2023-07-15T09:26:04+00:00"
+        },
+        {
+            "name": "assegaiphp/util",
+            "version": "0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/assegaiphp/util.git",
+                "reference": "4be7bc09f41941f8e5c9410f3a4d8ae300f59e88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/assegaiphp/util/zipball/4be7bc09f41941f8e5c9410f3a4d8ae300f59e88",
+                "reference": "4be7bc09f41941f8e5c9410f3a4d8ae300f59e88",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "codeception/codeception": "^5.0",
+                "codeception/module-asserts": "*",
+                "codeception/module-phpbrowser": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Functions.php"
+                ],
+                "psr-4": {
+                    "Assegai\\Util\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Masiye",
+                    "email": "amasiye313@gmail.com"
+                }
+            ],
+            "description": "A  collection of useful PHP utility classes to simplify common tasks and enhance application development.",
+            "support": {
+                "issues": "https://github.com/assegaiphp/util/issues",
+                "source": "https://github.com/assegaiphp/util/tree/0.4.2"
+            },
+            "time": "2023-09-18T10:17:53+00:00"
         },
         {
             "name": "assegaiphp/validation",
@@ -3872,5 +3920,5 @@
         "php": ">=8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

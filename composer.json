@@ -9,10 +9,7 @@
     "autoload": {
         "psr-4": {
             "Assegai\\Forms\\": "src/"
-        },
-        "files": [
-            "src/Util/Functions.php"
-        ]
+        }
     },
     "authors": [
         {
@@ -23,7 +20,8 @@
     "require": {
         "php": ">=8.2",
         "assegaiphp/validation": "^0.3.2",
-        "assegaiphp/collections": "^0.3.2"
+        "assegaiphp/collections": "^0.3.2",
+        "assegaiphp/util": "^0.4.2"
     },
     "config": {
         "allow-plugins": {
