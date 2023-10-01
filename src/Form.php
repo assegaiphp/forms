@@ -37,7 +37,6 @@ class Form implements FormInterface
    * @param FormEncodingType $encodingType The form encoding type. Defaults to FormEncodingType::MULTIPART_FORM_DATA.
    * @param FormDecoderInterface $decoder The form decoder. Defaults to new FormDecoder().
    * @throws InvalidFormException
-   * @throws FormException
    */
   public function __construct(
     ?ItemList $fields = null,
@@ -78,7 +77,7 @@ class Form implements FormInterface
       HttpMethod::GET => !empty($_GET),
       HttpMethod::POST => !empty($_POST),
       HttpMethod::PUT,
-      HttpMethod::PATCH => !file_get_contents('php://input'),
+      HttpMethod::PATCH => false !== file_get_contents('php://input'),
       default => false,
     };
   }
