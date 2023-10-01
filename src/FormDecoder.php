@@ -61,13 +61,13 @@ class FormDecoder implements FormDecoderInterface
     // TODO: Implement boundary validation.
 
     # Ensure the form has a valid field name and value.
-    if (!preg_match('/Content-Disposition: form-data; name=\"[a-zA-Z][\w\-_]+\"\n\n.*/', $form))
+    if (false === preg_match('/Content-Disposition: form-data; name=\"[a-zA-Z][\w\-_]+\"\n\n.*/', $form))
     {
       return false;
     }
 
     # Ensure the form has a valid field boundary.
-    if (!preg_match('/Content-Disposition: form-data; name=\"[a-zA-][\w\-]+\"\n\n[\w\W]*\-\-/', $form))
+    if (false === preg_match('/Content-Disposition: form-data; name=\"[a-zA-][\w\-]+\"\n\n[\w\W]*\-\-/', $form))
     {
       return false;
     }
