@@ -3,6 +3,7 @@
 namespace Assegai\Forms\Interfaces;
 
 use Assegai\Collections\ItemList;
+use Assegai\Forms\Exceptions\FormException;
 
 /**
  * Interface FormDataInterface. Represents a form data object.
@@ -10,75 +11,75 @@ use Assegai\Collections\ItemList;
 interface FormDataInterface
 {
   /**
-   * Appends a value to the form data.
+   * Appends a new value onto an existing key inside a FormData object, or adds the key if it does not already exist.
    *
-   * @param string $name The name of the value to append.
+   * @param string $key The key to append the value to.
    * @param mixed $value The value to append.
    * @return void
    */
-  public function append(string $name, mixed $value): void;
+  public function append(string $key, mixed $value): void;
 
   /**
-   * Deletes a value from the form data.
+   * Deletes a key/value pair from a FormData object.
    *
-   * @param string $name The name of the value to delete.
+   * @param string $key The key to delete.
    * @return void
    */
-  public function delete(string $name): void;
+  public function delete(string $key): void;
 
   /**
    * Gets a list of all the entries in the form data.
    *
-   * @return ItemList The list of entries.
+   * @return array The list of entries.
    */
-  public function entries(): ItemList;
+  public function entries(): array;
 
   /**
-   * Gets a value from the form data.
+   * Returns the first value associated with a given key from within a FormData object.
    *
-   * @param string $name The name of the value to get.
+   * @param string $key The key to get the value for.
    * @return mixed The value if it exists, null otherwise.
    */
-  public function get(string $name): mixed;
+  public function get(string $key): mixed;
 
   /**
-   * Gets a list of all the values for the given name.
+   * Returns an array of all the values associated with a given key from within a FormData.
    *
-   * @param string $name The name of the values to get.
-   * @return ItemList The list of values.
+   * @param string $key The key to get the values for.
+   * @return array The list of values.
    */
-  public function getAll(string $name): ItemList;
+  public function getAll(string $key): array;
 
   /**
-   * Determines if the form data has a value with the given name.
+   * Determines whether a FormData object contains a certain key.
    *
-   * @param string $name The name of the value to check.
+   * @param string $key The key to check for.
    * @return bool True if the form data has the value, false otherwise.
    */
-  public function has(string $name): bool;
+  public function has(string $key): bool;
 
   /**
-   * Gets a list of all the keys in the form data.
+   * Returns a list of all the keys in the form data.
    *
-   * @return ItemList The list of keys.
+   * @return array The list of keys.
    */
-  public function keys(): ItemList;
+  public function keys(): array;
 
   /**
-   * Sets a value in the form data.
+   * Sets a new value for an existing key inside a FormData object, or adds the key/value if it does not already exist.
    *
-   * @param string $name The name of the value to set.
+   * @param string $key The key to set the value for.
    * @param mixed $value The value to set.
    * @return void
    */
-  public function set(string $name, mixed $value): void;
+  public function set(string $key, mixed $value): void;
 
   /**
-   * Gets a list of all the values in the form data.
+   * Returns a list of all the values in the form data.
    *
-   * @return ItemList The list of values.
+   * @return array The list of values.
    */
-  public function values(): ItemList;
+  public function values(): array;
 
   /**
    * Converts the form data to an array.
@@ -93,6 +94,7 @@ interface FormDataInterface
    *
    * @param string|null $templateClass The class to use for the object template.
    * @return object The object.
+   * @throws FormException If the template class is invalid. The template class must have the AsForm attribute.
    */
   public function toObject(?string $templateClass = null): object;
 }
