@@ -5,7 +5,6 @@ namespace Assegai\Forms;
 use Assegai\Collections\ItemList;
 use Assegai\Forms\Enumerations\FormEncodingType;
 use Assegai\Forms\Enumerations\HttpMethod;
-use Assegai\Forms\Exceptions\FormException;
 use Assegai\Forms\Exceptions\InvalidFormException;
 use Assegai\Forms\FormControls\NumericField;
 use Assegai\Forms\FormControls\TextField;
@@ -60,7 +59,7 @@ class Form implements FormInterface
         HttpMethod::GET => $_GET,
         HttpMethod::POST => $_POST,
         HttpMethod::PUT,
-        HttpMethod::PATCH => ($this->decoder->decode(file_get_contents('php://input')))->all(),
+        HttpMethod::PATCH => ($this->decoder->decode(file_get_contents('php://input')))->getData(),
         default => [],
       };
 
@@ -116,7 +115,7 @@ class Form implements FormInterface
   /**
    * @inheritDoc
    */
-  public function all(): array
+  public function getData(): array
   {
     $fieldsMap = [];
 
@@ -171,7 +170,7 @@ class Form implements FormInterface
   public function toArray(): array
   {
     return [
-      'data' => $this->all(),
+      'data' => $this->getData(),
       'method' => $this->method->value,
       'selector' => $this->selector,
       'encodingType' => $this->encodingType->value,
