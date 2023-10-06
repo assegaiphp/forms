@@ -8,7 +8,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Assegai\\Forms\\": "src/"
+            "Assegai\\Forms\\": "src/",
+            "Assegai\\Tests\\Forms\\": "tests/"
         }
     },
     "authors": [

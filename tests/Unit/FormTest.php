@@ -56,7 +56,7 @@ it('can set fields to specific values', function () {
     ->and($form->getFieldValue('age'))->toBe($validIntValue);
 });
 
-it('can list all the field with their values', function () {
+it('can list the form data', function () {
   $validStringValue = 'Shaka';
   $validIntValue = 23;
 
@@ -68,7 +68,7 @@ it('can list all the field with their values', function () {
   $form->set('name', $validStringValue);
   $form->set('age', $validIntValue);
 
-  expect($form->all())->toBe([
+  expect($form->getData())->toBe([
     'name' => $validStringValue,
     'age' => $validIntValue,
   ]);

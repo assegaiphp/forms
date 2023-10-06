@@ -77,7 +77,7 @@ interface FormInterface extends RenderableInterface
    *
    * @return array The form values.
    */
-  public function all(): array;
+  public function getData(): array;
 
   /**
    * Validates the form.
