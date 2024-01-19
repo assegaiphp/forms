@@ -73,11 +73,12 @@ interface FormInterface extends RenderableInterface
   public function getAllFields(): ItemList;
 
   /**
-   * Returns all the form values.
+   * Returns all the form data.
    *
-   * @return array The form values.
+   * @param bool $asObject True if the data should be returned as an object, false otherwise.
+   * @return array|object The form data.
    */
-  public function getData(): array;
+  public function getData(bool $asObject = false): array|object;
 
   /**
    * Validates the form.
