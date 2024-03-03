@@ -6,9 +6,9 @@ use Assegai\Collections\ItemList;
 use Assegai\Forms\Exceptions\InvalidFormException;
 use Assegai\Forms\FormControls\NumericField;
 use Assegai\Forms\FormControls\TextField;
+use Assegai\Forms\Interfaces\FormDataInterface;
 use Assegai\Forms\Interfaces\FormDecoderInterface;
 use Assegai\Forms\Interfaces\FormFieldInterface;
-use Assegai\Forms\Interfaces\FormInterface;
 
 /**
  * Class FormDecoder
@@ -22,15 +22,14 @@ class FormDecoder implements FormDecoderInterface
   /**
    * @inheritDoc
    */
-  public function decode(string $form): FormInterface
+  public function decode(string $form): FormDataInterface
   {
-    // TODO: Implement decode() method.
     if (!$this->isValid($form))
     {
       throw new InvalidFormException();
     }
 
-    return new Form($this->getFormFields($form));
+    return new FormData($this->getFormFields($form)->toArray());
   }
 
   /**

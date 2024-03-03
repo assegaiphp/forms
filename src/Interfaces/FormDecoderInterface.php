@@ -14,10 +14,10 @@ interface FormDecoderInterface
    * Decodes a form string into an array of key-value pairs.
    *
    * @param string $form The form string.
-   * @return FormInterface The form data.
+   * @return FormDataInterface The form data.
    * @throws InvalidFormException If the form is invalid.
    */
-  public function decode(string $form): FormInterface;
+  public function decode(string $form): FormDataInterface;
 
   /**
    * Checks if the form is valid.
