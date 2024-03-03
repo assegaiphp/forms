@@ -5,6 +5,7 @@ namespace Assegai\Forms;
 use Assegai\Collections\ItemList;
 use Assegai\Forms\Enumerations\FormEncodingType;
 use Assegai\Forms\Enumerations\HttpMethod;
+use Assegai\Forms\Exceptions\FormException;
 use Assegai\Forms\Exceptions\InvalidFormException;
 use Assegai\Forms\FormControls\NumericField;
 use Assegai\Forms\FormControls\TextField;
@@ -26,6 +27,10 @@ class Form implements FormInterface
    * @var ItemList<FormFieldInterface> The form fields.
    */
   protected ItemList $fields;
+  /**
+   * @var FormData The form data.
+   */
+  protected FormData $data;
 
   /**
    * Constructs a new form.
@@ -36,13 +41,15 @@ class Form implements FormInterface
    * @param FormEncodingType $encodingType The form encoding type. Defaults to FormEncodingType::MULTIPART_FORM_DATA.
    * @param FormDecoderInterface $decoder The form decoder. Defaults to new FormDecoder().
    * @throws InvalidFormException
+   * @throws FormException
    */
   public function __construct(
     ?ItemList $fields = null,
     protected HttpMethod $method = HttpMethod::POST,
     protected string $selector = '',
     protected FormEncodingType $encodingType = FormEncodingType::MULTIPART_FORM_DATA,
-    protected FormDecoderInterface $decoder = new FormDecoder()
+    protected FormDecoderInterface $decoder = new FormDecoder(),
+    protected ?string $template = null,
   )
   {
     $this->fields = $fields ?? new ItemList(FormFieldInterface::class);
@@ -59,9 +66,14 @@ class Form implements FormInterface
         HttpMethod::GET => $_GET,
         HttpMethod::POST => $_POST,
         HttpMethod::PUT,
-        HttpMethod::PATCH => ($this->decoder->decode(file_get_contents('php://input')))->getData(),
+        HttpMethod::PATCH => ($this->decoder->decode(file_get_contents('php://input')))->toObject($this->template),
         default => [],
       };
+
+      if (is_object($data))
+      {
+        $data = (array)$data;
+      }
 
       $this->createFormFieldsFromSubmittedData($data);
     }
@@ -115,7 +127,7 @@ class Form implements FormInterface
   /**
    * @inheritDoc
    */
-  public function getData(): array
+  public function getData(bool $asObject = false): array
   {
     $fieldsMap = [];
 
