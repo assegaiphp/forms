@@ -2,9 +2,6 @@
     "name": "assegaiphp/forms",
     "description": "A simple PHP library for dealing with HTML form submissions.",
     "type": "library",
-    "require-dev": {
-        "pestphp/pest": "^2.16"
-    },
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -19,14 +16,17 @@
         }
     ],
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "assegaiphp/validation": "^0.3.2",
-        "assegaiphp/collections": "^0.3.2",
+        "assegaiphp/collections": "^0.3.4",
         "assegaiphp/util": "^0.4.2"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "require-dev": {
+        "pestphp/pest": "^4.4"
     }
 }

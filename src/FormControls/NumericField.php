@@ -3,14 +3,13 @@
 namespace Assegai\Forms\FormControls;
 
 use Assegai\Forms\Enumerations\FormControlType;
-use Assegai\Forms\FormControls\AbstractFormControl;
 use InvalidArgumentException;
 
 class NumericField extends AbstractFormControl
 {
   public function __construct(
     string $name,
-    float|int $value = null,
+    string|float|int|null $value = null,
     array $validationRules = [],
     string $label = '',
     string $placeholder = '',

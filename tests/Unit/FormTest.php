@@ -4,6 +4,11 @@ use Assegai\Forms\Enumerations\FormEncodingType;
 use Assegai\Forms\Enumerations\HttpMethod;
 use Assegai\Forms\Form;
 
+beforeEach(function () {
+  $_GET = [];
+  $_POST = [];
+});
+
 it('can check if a form is submitted', function () {
   $form = new Form(method: HttpMethod::POST, selector: '#test-form');
 
@@ -91,13 +96,51 @@ it('can list all validation errors', function () {
   $form->set('name', 'Shaka');
   $form->set('age', 23);
 
-  $form->validate('name', 'age');
+  $form->validate();
   $errors = $form->getErrors();
 
   expect($errors)->toBe([
     'name' => [],
     'age' => [],
   ]);
+});
+
+it('updates existing fields instead of duplicating them', function () {
+  $form = new Form(method: HttpMethod::POST, selector: '#test-form');
+
+  $form->set('age', 23);
+  $form->set('age', 42);
+
+  expect($form->getFieldValue('age'))->toBe(42)
+    ->and($form->getAllFields())->toHaveCount(1);
+});
+
+it('can get and remove fields by name', function () {
+  $form = new Form(method: HttpMethod::POST, selector: '#test-form');
+
+  $form->set('name', 'Shaka');
+
+  expect($form->getField('name'))->not()->toBeNull()
+    ->and($form->has('name'))->toBeTrue();
+
+  $form->removeField('name');
+
+  expect($form->getField('name'))->toBeNull()
+    ->and($form->has('name'))->toBeFalse()
+    ->and($form->getData())->toBe([]);
+});
+
+it('can list the form data as an object', function () {
+  $form = new Form(method: HttpMethod::POST, selector: '#test-form');
+
+  $form->set('name', 'Shaka');
+  $form->set('age', 23);
+
+  $data = $form->getData(asObject: true);
+
+  expect($data)->toBeInstanceOf(stdClass::class)
+    ->and($data->name)->toBe('Shaka')
+    ->and($data->age)->toBe(23);
 });
 
 it('can be represented as an associative array', function () {
@@ -128,5 +171,9 @@ it('can return it\'s render output as a string', function () {
   $form->set('name', 'Shaka');
   $output = $form->render();
 
-  expect($output)->toBe('<form method="POST" action="" enctype="multipart/form-data"></form>');
-})->skip('Not implemented yet');
+  expect($output)->toBe(
+    '<form method="POST" action="" enctype="multipart/form-data">' .
+    '<div class="form-control "><label for="name">name</label><input type="text" name="name" id="name" value="Shaka" placeholder="" /></div>' .
+    '</form>'
+  );
+});

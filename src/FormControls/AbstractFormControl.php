@@ -3,6 +3,7 @@
 namespace Assegai\Forms\FormControls;
 
 use Assegai\Forms\Enumerations\FormControlType;
+use Assegai\Forms\Enumerations\FormControlElementType;
 use Assegai\Forms\Interfaces\FormFieldInterface;
 use Assegai\Validation\Validator;
 use ReflectionException;
@@ -84,16 +85,38 @@ abstract class AbstractFormControl implements FormFieldInterface
   public function __toString(): string
   {
     $validName = strtokebab($this->name);
+    $id = $this->id ?: $validName;
+    $label = htmlspecialchars($this->getLabel(), ENT_QUOTES, 'UTF-8');
+    $placeholder = htmlspecialchars($this->placeholder, ENT_QUOTES, 'UTF-8');
+    $value = htmlspecialchars((string)($this->value ?? ''), ENT_QUOTES, 'UTF-8');
+    $helpText = $this->getHelpText() !== ''
+      ? sprintf('<small>%s</small>', htmlspecialchars($this->getHelpText(), ENT_QUOTES, 'UTF-8'))
+      : '';
+    $inputMarkup = match ($this->type->getElementType()) {
+      FormControlElementType::TEXTAREA => sprintf(
+        '<textarea name="%s" id="%s" placeholder="%s">%s</textarea>',
+        $validName,
+        $id,
+        $placeholder,
+        $value,
+      ),
+      default => sprintf(
+        '<input type="%s" name="%s" id="%s" value="%s" placeholder="%s" />',
+        $this->getInputType(),
+        $validName,
+        $id,
+        $value,
+        $placeholder,
+      ),
+    };
 
     return sprintf(
-      '<div class="%s"><label for="%s">%s</label><input type="text" name="%s" id="%s" value="%s" placeholder="%s" /></div>',
+      '<div class="%s"><label for="%s">%s</label>%s%s</div>',
       $this->getCSSClass(),
-      $validName,
-      $this->label,
-      $validName,
-      $validName,
-      $this->value,
-      $this->placeholder
+      $id,
+      $label,
+      $inputMarkup,
+      $helpText,
     );
   }
 
@@ -104,7 +127,7 @@ abstract class AbstractFormControl implements FormFieldInterface
    */
   public function getLabel(): string
   {
-    return $this->label ?? $this->name;
+    return $this->label !== '' ? $this->label : $this->name;
   }
 
   public function getPlaceholder(): string
@@ -135,6 +158,7 @@ abstract class AbstractFormControl implements FormFieldInterface
    */
   public function validate(): void
   {
+    $this->validator = new Validator();
     $this->validator->validate($this->value, $this->getRuleString());
   }
 
@@ -152,7 +176,6 @@ abstract class AbstractFormControl implements FormFieldInterface
   public function addValidationRules(string ...$rules): void
   {
     $this->validationRules = [...$this->validationRules, ...$rules];
-    $this->validator->addAllRules($rules);
   }
 
   /**
@@ -187,5 +210,13 @@ abstract class AbstractFormControl implements FormFieldInterface
   public function getErrors(): array
   {
     return $this->validator->getErrors();
+  }
+
+  protected function getInputType(): string
+  {
+    return match ($this->type) {
+      FormControlType::NUMERIC => 'number',
+      default => 'text',
+    };
   }
 }
