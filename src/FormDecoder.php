@@ -24,12 +24,14 @@ class FormDecoder implements FormDecoderInterface
    */
   public function decode(string $form): FormDataInterface
   {
-    if (!$this->isValid($form))
+    $formData = new FormData();
+
+    foreach ($this->parseFields($form) as $field)
     {
-      throw new InvalidFormException();
+      $formData->append($field['name'], $field['value']);
     }
 
-    return new FormData($this->getFormFields($form)->toArray());
+    return $formData;
   }
 
   /**
@@ -37,41 +39,14 @@ class FormDecoder implements FormDecoderInterface
    */
   public function isValid(string $form): bool
   {
-    // TODO: Implement isValid() method.
-    # Ensure the form is not empty.
-    if (empty($form))
+    try
+    {
+      return !empty($this->parseFields($form));
+    }
+    catch (InvalidFormException)
     {
       return false;
     }
-
-    # Ensure the form has a boundary.
-    if (!$this->getBoundary($form))
-    {
-      return false;
-    }
-
-    # Ensure the form has at least one field.
-    if (!str_contains($form, 'Content-Disposition: form-data; name="'))
-    {
-      return false;
-    }
-
-    # Ensure the form has a valid boundary.
-    // TODO: Implement boundary validation.
-
-    # Ensure the form has a valid field name and value.
-    if (false === preg_match('/Content-Disposition: form-data; name=\"[a-zA-Z][\w\-_]+\"\n\n.*/', $form))
-    {
-      return false;
-    }
-
-    # Ensure the form has a valid field boundary.
-    if (false === preg_match('/Content-Disposition: form-data; name=\"[a-zA-][\w\-]+\"\n\n[\w\W]*\-\-/', $form))
-    {
-      return false;
-    }
-
-    return true;
   }
 
   /**
@@ -83,39 +58,13 @@ class FormDecoder implements FormDecoderInterface
    */
   public function getFormFieldsAsArray(string $form): array
   {
-    $boundary = $this->getBoundary($form);
-
-    if ($boundary === false)
-    {
-      throw new InvalidFormException();
-    }
-
-    $rawFields = explode($boundary, $form);
-
-    # Remove the first and last fields.
-    $rawFields = array_slice($rawFields, 1, -1);
-
-    # Split the fields into key-value pairs.
     $fields = [];
-    foreach ($rawFields as $field) {
-      $key = '';
-      $value = '';
-      if (false !== preg_match('/Content-Disposition: form-data; name="(.*)"/', $field, $matches))
-      {
-        $key = $matches[1];
-      }
-      if (strlen($key) === 0)
-      {
-        continue;
-      }
 
-      if (false !== preg_match('/Content-Disposition: form-data;.*\n.*\n(.*)/', $field, $matches))
-      {
-        $value = $matches[1];
-      }
-      $fields[$key] = match(true) {
-        is_numeric($value) => new NumericField(name: $key, value: $value),
-        default => new TextField(name: $key, value: $value)
+    foreach ($this->parseFields($form) as $field)
+    {
+      $fields[$field['name']] = match (true) {
+        is_numeric($field['value']) => new NumericField(name: $field['name'], value: $field['value']),
+        default => new TextField(name: $field['name'], value: $field['value']),
       };
     }
 
@@ -127,7 +76,7 @@ class FormDecoder implements FormDecoderInterface
    */
   public function getFormFields(string $form): ItemList
   {
-    $fields = $this->getFormFieldsAsArray($form);
+    $fields = array_values($this->getFormFieldsAsArray($form));
 
     return new ItemList(FormFieldInterface::class, $fields);
   }
@@ -137,18 +86,97 @@ class FormDecoder implements FormDecoderInterface
    */
   function getBoundary(string $form): string|false
   {
-    $boundary = substr($form, 0, strpos($form, "\n"));
-
-    if (!$boundary)
+    if ($this->boundary)
     {
-      $boundary = substr($form, 0, strpos($form, "\r\n"));
+      return $this->boundary;
     }
 
-    if (!$boundary || str_starts_with($boundary, 'Content-Disposition: form-data; name="'))
+    $normalizedForm = $this->normalizeLineEndings($form);
+    $boundary = trim(strtok($normalizedForm, "\n") ?: '');
+
+    if ($boundary === '' || str_starts_with($boundary, 'Content-Disposition: form-data;'))
     {
       return false;
     }
 
     return $boundary;
+  }
+
+  /**
+   * Parses the raw multipart payload into simple name/value pairs.
+   *
+   * @param string $form The encoded form payload.
+   * @return array<int, array{name: string, value: string}>
+   * @throws InvalidFormException
+   */
+  private function parseFields(string $form): array
+  {
+    if ($form === '')
+    {
+      throw new InvalidFormException();
+    }
+
+    $normalizedForm = $this->normalizeLineEndings($form);
+    $boundary = $this->getBoundary($normalizedForm);
+
+    if ($boundary === false)
+    {
+      throw new InvalidFormException();
+    }
+
+    $rawFields = array_slice(explode($boundary, $normalizedForm), 1);
+    $fields = [];
+
+    foreach ($rawFields as $rawField)
+    {
+      $field = ltrim($rawField, "\n");
+      $field = rtrim($field, "\n");
+
+      if ($field === '' || $field === '--')
+      {
+        continue;
+      }
+
+      if (str_starts_with($field, '--'))
+      {
+        $field = ltrim(substr($field, 2), "\n");
+      }
+
+      if ($field === '')
+      {
+        continue;
+      }
+
+      $parts = explode("\n\n", $field, 2);
+
+      if (count($parts) < 2)
+      {
+        throw new InvalidFormException();
+      }
+
+      [$headers, $value] = $parts;
+
+      if (false === preg_match('/Content-Disposition:\s*form-data;\s*name="([^"]+)"/', $headers, $matches))
+      {
+        throw new InvalidFormException();
+      }
+
+      $fields[] = [
+        'name' => $matches[1],
+        'value' => rtrim($value, "\n"),
+      ];
+    }
+
+    if (empty($fields))
+    {
+      throw new InvalidFormException();
+    }
+
+    return $fields;
+  }
+
+  private function normalizeLineEndings(string $value): string
+  {
+    return str_replace(["\r\n", "\r"], "\n", $value);
   }
 }

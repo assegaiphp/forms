@@ -136,3 +136,24 @@ test('get boundary', function () use ($validForm, $invalidFormNoBoundary, $valid
   $boundary = $formDecoder->getBoundary($invalidFormNoBoundary);
   expect($boundary)->toBeFalse();
 });
+
+it('can decode multipart payloads with CRLF line endings', function () {
+  $boundary = '----------------------------807299579146148994327142';
+  $form = implode("\r\n", [
+    $boundary,
+    'Content-Disposition: form-data; name="website"',
+    '',
+    'http://veda.info',
+    $boundary,
+    'Content-Disposition: form-data; name="age"',
+    '',
+    '23',
+    $boundary . '--',
+  ]);
+
+  $formDecoder = new FormDecoder();
+  $decodedForm = $formDecoder->decode($form);
+
+  expect($decodedForm->getFieldValue('website'))->toBe('http://veda.info')
+    ->and($decodedForm->getFieldValue('age'))->toBe('23');
+});

@@ -74,6 +74,17 @@ class FormData implements FormDataInterface
   }
 
   /**
+   * Returns a form field value using the same naming as Form::getFieldValue().
+   *
+   * @param string $key The field name.
+   * @return mixed
+   */
+  public function getFieldValue(string $key): mixed
+  {
+    return $this->get($key);
+  }
+
+  /**
    * @inheritDoc
    */
   public function getAll(string $key): array
@@ -135,7 +146,21 @@ class FormData implements FormDataInterface
    */
   public function toArray(array $propertyMap = []): array
   {
-    return array_combine($this->keys(), $this->values());
+    $array = array_combine($this->keys(), $this->values()) ?: [];
+
+    if (empty($propertyMap))
+    {
+      return $array;
+    }
+
+    $mappedArray = [];
+
+    foreach ($array as $key => $value)
+    {
+      $mappedArray[$propertyMap[$key] ?? $key] = $value;
+    }
+
+    return $mappedArray;
   }
 
   /**
@@ -146,8 +171,13 @@ class FormData implements FormDataInterface
     $object = new stdClass();
     $map = $this->toArray();
 
-    if ($templateClass && class_exists($templateClass))
+    if ($templateClass)
     {
+      if (!class_exists($templateClass))
+      {
+        throw new FormException('Template class does not exist.');
+      }
+
       # Attempt to get the AsForm attribute from the template class.
       $templateClassReflection = new ReflectionClass($templateClass);
 

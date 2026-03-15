@@ -53,6 +53,7 @@ class Form implements FormInterface
   )
   {
     $this->fields = $fields ?? new ItemList(FormFieldInterface::class);
+    $this->data = new FormData();
 
     if (!$this->isValid())
     {
@@ -66,7 +67,9 @@ class Form implements FormInterface
         HttpMethod::GET => $_GET,
         HttpMethod::POST => $_POST,
         HttpMethod::PUT,
-        HttpMethod::PATCH => ($this->decoder->decode(file_get_contents('php://input')))->toObject($this->template),
+        HttpMethod::PATCH => $this->template
+          ? $this->decoder->decode(file_get_contents('php://input'))->toObject($this->template)
+          : $this->decoder->decode(file_get_contents('php://input'))->toArray(),
         default => [],
       };
 
@@ -88,7 +91,7 @@ class Form implements FormInterface
       HttpMethod::GET => !empty($_GET),
       HttpMethod::POST => !empty($_POST),
       HttpMethod::PUT,
-      HttpMethod::PATCH => false !== file_get_contents('php://input'),
+      HttpMethod::PATCH => (($payload = file_get_contents('php://input')) !== false) && $payload !== '',
       default => false,
     };
   }
@@ -115,25 +118,41 @@ class Form implements FormInterface
    */
   public function set(string $name, mixed $value): void
   {
-    $newField = match (gettype($value)) {
-      "double",
-      'integer' => new NumericField($name, $value),
+    $existingField = $this->getField($name);
+
+    if ($existingField)
+    {
+      $existingField->setValue($value);
+      $this->errors[$name] = [...$existingField->getErrors()];
+      $this->data->set($name, $existingField->getValue());
+      return;
+    }
+
+    $newField = match (true) {
+      is_int($value),
+      is_float($value),
+      is_string($value) && is_numeric($value) => new NumericField($name, $value),
       default => new TextField($name, $value),
     };
-    $this->fields->add($newField);
-    $this->errors[$name] ??= [];
+
+    $this->addField($newField);
   }
 
   /**
    * @inheritDoc
    */
-  public function getData(bool $asObject = false): array
+  public function getData(bool $asObject = false): array|object
   {
     $fieldsMap = [];
 
     foreach ($this->getAllFields() as $field)
     {
       $fieldsMap[$field->getName()] = $field->getValue();
+    }
+
+    if ($asObject)
+    {
+      return (new FormData($fieldsMap))->toObject($this->template);
     }
 
     return $fieldsMap;
@@ -173,7 +192,12 @@ class Form implements FormInterface
    */
   public function getErrors(?string $key = null): array
   {
-    return $this->errors[$key] ?? $this->errors;
+    if ($key === null)
+    {
+      return $this->errors;
+    }
+
+    return $this->errors[$key] ?? [];
   }
 
   /**
@@ -194,7 +218,14 @@ class Form implements FormInterface
    */
   public function addField(FormFieldInterface $field): void
   {
+    if ($existingField = $this->getField($field->getName()))
+    {
+      $this->fields->remove($existingField);
+    }
+
     $this->fields->add($field);
+    $this->errors[$field->getName()] = [...$field->getErrors()];
+    $this->data->set($field->getName(), $field->getValue());
   }
 
   /**
@@ -202,7 +233,13 @@ class Form implements FormInterface
    */
   public function removeField(string $name): void
   {
-    $this->fields->remove($name);
+    if ($field = $this->getField($name))
+    {
+      $this->fields->remove($field);
+    }
+
+    unset($this->errors[$name]);
+    $this->data->delete($name);
   }
 
   /**
@@ -210,7 +247,11 @@ class Form implements FormInterface
    */
   public function getField(string $name): ?FormFieldInterface
   {
-    return $this->fields->find(function ($item) use ($name) { $item->getName() === $name; }) ?? null;
+    return $this->fields->find(
+      function (FormFieldInterface $item) use ($name) {
+        return $item->getName() === $name;
+      }
+    ) ?? null;
   }
 
   /**
@@ -226,8 +267,42 @@ class Form implements FormInterface
    */
   public function render(): string
   {
-    // TODO: Implement render() method.
-    throw new Exception('Not implemented.');
+    $attributes = [
+      'method' => $this->method->value,
+      'action' => '',
+      'enctype' => $this->encodingType->value,
+    ];
+
+    if ($this->selector !== '')
+    {
+      if (str_starts_with($this->selector, '#'))
+      {
+        $attributes['id'] = substr($this->selector, 1);
+      }
+      elseif (str_starts_with($this->selector, '.'))
+      {
+        $attributes['class'] = trim(str_replace('.', ' ', $this->selector));
+      }
+      else
+      {
+        $attributes['action'] = $this->selector;
+      }
+    }
+
+    $formAttributes = implode(
+      ' ',
+      array_map(
+        fn(string $name, string $value) => sprintf('%s="%s"', $name, htmlspecialchars($value, ENT_QUOTES, 'UTF-8')),
+        array_keys($attributes),
+        array_values($attributes),
+      )
+    );
+    $fields = implode('', array_map(
+      static fn(FormFieldInterface $field) => (string)$field,
+      iterator_to_array($this->fields),
+    ));
+
+    return sprintf('<form %s>%s</form>', $formAttributes, $fields);
   }
 
   /**

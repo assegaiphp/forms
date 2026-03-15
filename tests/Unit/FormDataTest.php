@@ -74,6 +74,15 @@ it('can get the form data as an array', function () {
         ->and($array['name2'])->toBe('value3');
 });
 
+it('can remap keys when converting form data to an array', function () {
+    $formData = new FormData();
+    $formData->set('first_name', 'Shaka');
+
+    expect($formData->toArray(['first_name' => 'firstName']))->toBe([
+        'firstName' => 'Shaka',
+    ]);
+});
+
 it('can get the form data as an object of a specific type', /** @throws Exception */ function () {
     require __DIR__ . '/../Mocks/MockEntityDto.php';
 
@@ -92,6 +101,9 @@ it('can get the form data as an object of a specific type', /** @throws Exceptio
       throw new Exception('FormException not thrown.');
     }
     catch (FormException) {}
+
+    expect(fn() => $formData->toObject('Assegai\\Tests\\Forms\\Mocks\\MissingDto'))
+        ->toThrow(FormException::class);
 
     $firstName = 'Shaka';
     $lastName = 'Zulu';
