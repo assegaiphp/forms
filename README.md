@@ -39,7 +39,7 @@ composer require assegaiphp/forms
    ```php
    use Assegai\Forms\Form;
 
-   $form = new Form('contact_form', 'POST', '/submit');
+   $form = new Form(null, 'POST', '/submit');
    ```
 
 2. **Add Form Fields:**
