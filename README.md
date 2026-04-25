@@ -23,6 +23,14 @@ For commit and pull request conventions in this repo, see:
 
 - [docs/commit-and-pr-guidelines.md](./docs/commit-and-pr-guidelines.md)
 
+Git hooks for this repository live in [`.githooks`](./.githooks). Running `composer install` or `composer update`
+will automatically configure `core.hooksPath` for this clone so the committed `pre-push` checks are used. If you
+need to apply the hook configuration manually, run:
+
+```bash
+composer run hooks:install
+```
+
 ## Features
 - **Form Creation:** Easily create HTML forms programmatically using a simple and intuitive syntax.
 - **Form Fields:** Support for various types of form fields such as text fields, numeric fields, and more.
@@ -41,6 +49,7 @@ composer require assegaiphp/forms
    ```php
    use Assegai\Forms\Form;
    use Assegai\Forms\Enumerations\HttpMethod;
+
    $form = new Form(
        method: HttpMethod::POST,
        selector: '#contact-form'
@@ -77,10 +86,13 @@ composer require assegaiphp/forms
 use Assegai\Forms\Form;
 use Assegai\Forms\Enumerations\HttpMethod;
 use Assegai\Forms\FormControls\TextField;
+
 $form = new Form(method: HttpMethod::POST, selector: '#user-form');
+
 // Create a field with validation rules
 $nameField = new TextField('name', '', ['required', 'min:3']);
 $form->addField($nameField);
+
 // Or add fields and set validation rules later
 $form->set('email', '');
 $emailField = $form->getField('email');
@@ -90,6 +102,7 @@ $emailField->addValidationRules('required', 'email');
 ```php
 // Get data as an associative array
 $data = $form->getData();
+
 // Get data as a stdClass object
 $dataObject = $form->getData(asObject: true);
 ```
@@ -99,8 +112,10 @@ $dataObject = $form->getData(asObject: true);
 if ($form->has('name')) {
     // Get a specific field value
     $name = $form->getFieldValue('name');
+
     // Get the field object
     $nameField = $form->getField('name');
+
     // Remove a field
     $form->removeField('name');
 }
@@ -109,10 +124,13 @@ if ($form->has('name')) {
 The form supports multiple HTTP methods:
 ```php
 use Assegai\Forms\Enumerations\HttpMethod;
+
 // POST forms
 $postForm = new Form(method: HttpMethod::POST, selector: '#form');
+
 // GET forms
 $getForm = new Form(method: HttpMethod::GET, selector: '#search');
+
 // PUT/PATCH forms for updates
 $updateForm = new Form(method: HttpMethod::PUT, selector: '#update-form');
 $patchForm = new Form(method: HttpMethod::PATCH, selector: '#patch-form');
@@ -122,8 +140,10 @@ The selector parameter can be used to set the form's ID, CSS class, or action UR
 ```php
 // Set the form ID
 $form = new Form(selector: '#my-form');
+
 // Set the form CSS classes
 $form = new Form(selector: '.form-class1.form-class2');
+
 // Set the form action URL
 $form = new Form(selector: '/submit-form');
 ```

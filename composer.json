@@ -30,6 +30,15 @@
         "pestphp/pest": "^4.4"
     },
     "scripts": {
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest",
+        "hooks:install": [
+            "git config core.hooksPath .githooks"
+        ],
+        "post-install-cmd": [
+            "@hooks:install"
+        ],
+        "post-update-cmd": [
+            "@hooks:install"
+        ]
     }
 }
