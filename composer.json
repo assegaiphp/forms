@@ -17,9 +17,9 @@
     ],
     "require": {
         "php": ">=8.4",
-        "assegaiphp/validation": "^0.3.2",
-        "assegaiphp/collections": "^0.3.4",
-        "assegaiphp/util": "^0.4.2"
+        "assegaiphp/validation": "^0.9.0",
+        "assegaiphp/collections": "^0.9.0",
+        "assegaiphp/util": "^0.9.0"
     },
     "config": {
         "allow-plugins": {
@@ -28,5 +28,17 @@
     },
     "require-dev": {
         "pestphp/pest": "^4.4"
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "hooks:install": [
+            "git config core.hooksPath .githooks"
+        ],
+        "post-install-cmd": [
+            "@hooks:install"
+        ],
+        "post-update-cmd": [
+            "@hooks:install"
+        ]
     }
 }

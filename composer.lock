@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14d9edc752e3a1f61945967bf1d67dd2",
+    "content-hash": "6f1ef232000c9a40edb556c847b236eb",
     "packages": [
         {
             "name": "arubacao/tld-checker",
-            "version": "1.2.195",
+            "version": "1.2.292",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arubacao/tld-checker.git",
-                "reference": "7c781564a2fb44ee2a95dd25d226914274c61acc"
+                "reference": "c4c545145677b1e9a558d3a0de633832fb644c57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arubacao/tld-checker/zipball/7c781564a2fb44ee2a95dd25d226914274c61acc",
-                "reference": "7c781564a2fb44ee2a95dd25d226914274c61acc",
+                "url": "https://api.github.com/repos/arubacao/tld-checker/zipball/c4c545145677b1e9a558d3a0de633832fb644c57",
+                "reference": "c4c545145677b1e9a558d3a0de633832fb644c57",
                 "shasum": ""
             },
             "require": {
@@ -65,26 +65,26 @@
             ],
             "support": {
                 "issues": "https://github.com/arubacao/tld-checker/issues",
-                "source": "https://github.com/arubacao/tld-checker/tree/1.2.195"
+                "source": "https://github.com/arubacao/tld-checker/tree/1.2.292"
             },
-            "time": "2023-08-27T04:01:08+00:00"
+            "time": "2025-07-06T04:01:17+00:00"
         },
         {
             "name": "assegaiphp/collections",
-            "version": "0.3.5",
+            "version": "0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/assegaiphp/collections.git",
-                "reference": "b41affabc18515e365a65193bdc0b3c2fc5e52df"
+                "reference": "14ed3c186cac650513eaa4d731ca3f971a15daf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/assegaiphp/collections/zipball/b41affabc18515e365a65193bdc0b3c2fc5e52df",
-                "reference": "b41affabc18515e365a65193bdc0b3c2fc5e52df",
+                "url": "https://api.github.com/repos/assegaiphp/collections/zipball/14ed3c186cac650513eaa4d731ca3f971a15daf8",
+                "reference": "14ed3c186cac650513eaa4d731ca3f971a15daf8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.3"
+                "php": ">=8.4"
             },
             "require-dev": {
                 "pestphp/pest": "^4.4"
@@ -111,29 +111,29 @@
             "description": "The assegaiphp/collections package is a powerful tool for creating and managing groups of related objects in your AssegaiPHP projects. With this library, you can easily organize and manipulate data in a variety of ways, such as arrays, lists, sets, and maps. The package offers a wide range of methods for adding, removing, and manipulating items, as well as sorting, searching, and filtering your collections. It is fully compatible with PHP 7.x and above and is designed to be lightweight and easy to use. Whether you're building a web application, a CLI tool, or a standalone script, assegaiphp/collections is the perfect choice for working with data. With its simple and intuitive interface, you can easily start working with collections in your project right away.",
             "support": {
                 "issues": "https://github.com/assegaiphp/collections/issues",
-                "source": "https://github.com/assegaiphp/collections/tree/0.3.5"
+                "source": "https://github.com/assegaiphp/collections/tree/0.9.0"
             },
-            "time": "2026-03-15T03:26:10+00:00"
+            "time": "2026-04-25T19:10:30+00:00"
         },
         {
             "name": "assegaiphp/util",
-            "version": "0.4.2",
+            "version": "0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/assegaiphp/util.git",
-                "reference": "4be7bc09f41941f8e5c9410f3a4d8ae300f59e88"
+                "reference": "8d5d7f0f1b67833910d75f8d706ce3ad405be18c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/assegaiphp/util/zipball/4be7bc09f41941f8e5c9410f3a4d8ae300f59e88",
-                "reference": "4be7bc09f41941f8e5c9410f3a4d8ae300f59e88",
+                "url": "https://api.github.com/repos/assegaiphp/util/zipball/8d5d7f0f1b67833910d75f8d706ce3ad405be18c",
+                "reference": "8d5d7f0f1b67833910d75f8d706ce3ad405be18c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2"
+                "atatusoft-ltd/plural": "^1.1",
+                "php": ">=8.4"
             },
             "require-dev": {
-                "codeception/codeception": "^5.0",
                 "codeception/module-asserts": "*",
                 "codeception/module-phpbrowser": "*"
             },
@@ -159,22 +159,22 @@
             "description": "A  collection of useful PHP utility classes to simplify common tasks and enhance application development.",
             "support": {
                 "issues": "https://github.com/assegaiphp/util/issues",
-                "source": "https://github.com/assegaiphp/util/tree/0.4.2"
+                "source": "https://github.com/assegaiphp/util/tree/0.9.0"
             },
-            "time": "2023-09-18T10:17:53+00:00"
+            "time": "2026-04-25T16:21:06+00:00"
         },
         {
             "name": "assegaiphp/validation",
-            "version": "0.3.2",
+            "version": "0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/assegaiphp/validation.git",
-                "reference": "f9dcb287052fb97c9d50dfe81b9b5d3f28e7ec98"
+                "reference": "470450b74eae99c07b0770ccc39508c4ea5a372e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/assegaiphp/validation/zipball/f9dcb287052fb97c9d50dfe81b9b5d3f28e7ec98",
-                "reference": "f9dcb287052fb97c9d50dfe81b9b5d3f28e7ec98",
+                "url": "https://api.github.com/repos/assegaiphp/validation/zipball/470450b74eae99c07b0770ccc39508c4ea5a372e",
+                "reference": "470450b74eae99c07b0770ccc39508c4ea5a372e",
                 "shasum": ""
             },
             "require": {
@@ -206,37 +206,88 @@
             "description": "Introducing the AssegaiPHP Validation package, the ultimate tool for ensuring the integrity and accuracy of your application's data. With this package, you can easily implement validation rules for incoming data, whether it be from a form submission, API request, or any other source. The package utilizes a simple, yet powerful syntax that allows you to specify a wide range of validation rules with ease. Additionally, the package integrates seamlessly with the AssegaiPHP framework, making it an essential addition to any AssegaiPHP project. With this package, you'll have peace of mind knowing that your application is receiving clean and accurate data every time.",
             "support": {
                 "issues": "https://github.com/assegaiphp/validation/issues",
-                "source": "https://github.com/assegaiphp/validation/tree/0.3.2"
+                "source": "https://github.com/assegaiphp/validation/tree/0.9.0"
             },
-            "time": "2023-02-11T11:53:05+00:00"
+            "time": "2023-08-31T03:56:19+00:00"
         },
         {
-            "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.19",
+            "name": "atatusoft-ltd/plural",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "7b60d1264ba806e68fb99b06e73e2ed07815689e"
+                "url": "https://github.com/atatusoft-ltd/plural.git",
+                "reference": "c84308b569a0731033e50248424cec660601ba7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/7b60d1264ba806e68fb99b06e73e2ed07815689e",
-                "reference": "7b60d1264ba806e68fb99b06e73e2ed07815689e",
+                "url": "https://api.github.com/repos/atatusoft-ltd/plural/zipball/c84308b569a0731033e50248424cec660601ba7e",
+                "reference": "c84308b569a0731033e50248424cec660601ba7e",
                 "shasum": ""
             },
             "require": {
-                "giggsey/locale": "^1.7|^2.0",
-                "php": ">=5.3.2",
-                "symfony/polyfill-mbstring": "^1.17"
+                "php": "^8.3"
             },
             "require-dev": {
-                "pear/pear-core-minimal": "^1.9",
+                "pestphp/pest": "^3.7",
+                "phpstan/phpstan": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Util/Functions.php"
+                ],
+                "psr-4": {
+                    "Atatusoft\\Plural\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Masiye",
+                    "email": "amasiye313@gmail.com"
+                }
+            ],
+            "description": "Plural is a library that provides natural language pluralization functions for PHP.",
+            "support": {
+                "source": "https://github.com/atatusoft-ltd/plural/tree/1.2.0"
+            },
+            "time": "2024-12-18T13:28:12+00:00"
+        },
+        {
+            "name": "giggsey/libphonenumber-for-php",
+            "version": "8.13.55",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giggsey/libphonenumber-for-php.git",
+                "reference": "6e28b3d53cf96d7f41c83d9b80b6021ecbd00537"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/6e28b3d53cf96d7f41c83d9b80b6021ecbd00537",
+                "reference": "6e28b3d53cf96d7f41c83d9b80b6021ecbd00537",
+                "shasum": ""
+            },
+            "require": {
+                "giggsey/locale": "^2.0",
+                "php": "^7.4|^8.0",
+                "symfony/polyfill-mbstring": "^1.17"
+            },
+            "replace": {
+                "giggsey/libphonenumber-for-php-lite": "self.version"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "pear/pear-core-minimal": "^1.10",
                 "pear/pear_exception": "^1.0",
-                "pear/versioncontrol_git": "^0.5",
-                "phing/phing": "^2.7",
-                "php-coveralls/php-coveralls": "^1.0|^2.0",
-                "symfony/console": "^2.8|^3.0|^v4.4|^v5.2",
-                "symfony/phpunit-bridge": "^4.2 || ^5"
+                "pear/versioncontrol_git": "^0.7",
+                "phing/phing": "^3.0",
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^9.6",
+                "symfony/console": "^v5.2",
+                "symfony/var-exporter": "^5.2"
             },
             "type": "library",
             "extra": {
@@ -280,37 +331,41 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2023-08-22T13:59:44+00:00"
+            "time": "2025-02-14T08:14:08+00:00"
         },
         {
             "name": "giggsey/locale",
-            "version": "2.4",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "a6b33dfc9e8949b7e28133c4628b29cd9f1850bb"
+                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/a6b33dfc9e8949b7e28133c4628b29cd9f1850bb",
-                "reference": "a6b33dfc9e8949b7e28133c4628b29cd9f1850bb",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/fe741e99ae6ccbe8132f3d63d8ec89924e689778",
+                "reference": "fe741e99ae6ccbe8132f3d63d8ec89924e689778",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": "^8.1"
             },
             "require-dev": {
                 "ext-json": "*",
-                "pear/pear-core-minimal": "^1.9",
-                "pear/pear_exception": "^1.0",
-                "pear/versioncontrol_git": "^0.5",
-                "phing/phing": "^2.7",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^8.5|^9.5",
-                "symfony/console": "^5.0|^6.0",
-                "symfony/filesystem": "^5.0|^6.0",
-                "symfony/finder": "^5.0|^6.0",
-                "symfony/process": "^5.0|^6.0"
+                "friendsofphp/php-cs-fixer": "^3.66",
+                "infection/infection": "^0.29|^0.32.0",
+                "php-coveralls/php-coveralls": "^2.7",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.1.7",
+                "phpstan/phpstan-deprecation-rules": "^2.0.1",
+                "phpstan/phpstan-phpunit": "^2.0.4",
+                "phpstan/phpstan-strict-rules": "^2.0.3",
+                "phpunit/phpunit": "^10.5.45",
+                "symfony/console": "^6.4",
+                "symfony/filesystem": "^6.4",
+                "symfony/finder": "^6.4",
+                "symfony/process": "^6.4",
+                "symfony/var-exporter": "^6.4"
             },
             "type": "library",
             "autoload": {
@@ -332,26 +387,27 @@
             "description": "Locale functions required by libphonenumber-for-php",
             "support": {
                 "issues": "https://github.com/giggsey/Locale/issues",
-                "source": "https://github.com/giggsey/Locale/tree/2.4"
+                "source": "https://github.com/giggsey/Locale/tree/2.9.0"
             },
-            "time": "2023-04-13T07:40:58+00:00"
+            "time": "2026-02-24T15:32:13+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.27.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534"
+                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
-                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6a21eb99c6973357967f6ce3708cd55a6bec6315",
+                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "ext-iconv": "*",
+                "php": ">=7.2"
             },
             "provide": {
                 "ext-mbstring": "*"
@@ -361,12 +417,9 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.27-dev"
-                },
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
@@ -401,7 +454,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.27.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.36.0"
             },
             "funding": [
                 {
@@ -413,11 +466,15 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-03T14:55:06+00:00"
+            "time": "2026-04-10T17:25:58+00:00"
         }
     ],
     "packages-dev": [
