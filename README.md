@@ -1,12 +1,28 @@
 <div align="center" style="padding-bottom: 48px">
     <a href="https://assegaiphp.com/" target="blank"><img src="https://assegaiphp.com/images/logos/logo-cropped.png" width="200" alt="Assegai Logo"></a>
 </div>
+
+<p align="center">
+  <a href="https://github.com/assegaiphp/forms/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/assegaiphp/forms?display_name=tag&sort=semver&style=flat-square"></a>
+  <a href="https://github.com/assegaiphp/forms/actions/workflows/php.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/assegaiphp/forms/php.yml?branch=main&label=tests&style=flat-square"></a>
+  <img alt="PHP 8.4+" src="https://img.shields.io/badge/PHP-8.4%2B-777BB4?style=flat-square&logo=php&logoColor=white">
+  <a href="https://github.com/assegaiphp/forms/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/assegaiphp/forms?style=flat-square"></a>
+  <img alt="Status active" src="https://img.shields.io/badge/status-active-10b981?style=flat-square">
+</p>
+
 <p style="text-align: center">A progressive <a href="https://php.net">PHP</a> framework for building effecient and scalable server-side applications.</p>
 
 ## Description
 Assegai is a framework for building efficient, scalable <a href="https://php.net" target="blank">PHP</a> server-side applications. It uses modern PHP (PHP 8.4+) and combines elements of OOP (Object Oriented Programming) and FP (Functional Programming).
 ## Overview
 The AssegaiPHP Forms Library is a powerful and flexible tool for managing HTML forms submitted using POST, PUT, or PATCH requests. This library is designed to simplify the process of handling form data, validation, and submission in PHP web applications. It provides a clean and intuitive interface for creating, processing, and validating forms, making it easier for developers to build robust and secure web applications.
+
+## Contribution workflow
+
+For commit and pull request conventions in this repo, see:
+
+- [docs/commit-and-pr-guidelines.md](./docs/commit-and-pr-guidelines.md)
+
 ## Features
 - **Form Creation:** Easily create HTML forms programmatically using a simple and intuitive syntax.
 - **Form Fields:** Support for various types of form fields such as text fields, numeric fields, and more.

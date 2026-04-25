@@ -1,0 +1,15 @@
+{
+  "repository": "assegaiphp/forms",
+  "package": "assegaiphp/forms",
+  "php": ">=8.4",
+  "license": "MIT",
+  "ci": {
+    "workflow": "php.yml",
+    "label": "tests"
+  },
+  "status": {
+    "label": "active",
+    "color": "10b981",
+    "summary": "Forms library with a green local Pest unit lane."
+  }
+}
