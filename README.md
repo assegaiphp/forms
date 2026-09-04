@@ -10,12 +10,15 @@
   <img alt="Status active" src="https://img.shields.io/badge/status-active-10b981?style=flat-square">
 </p>
 
-<p style="text-align: center">A progressive <a href="https://php.net">PHP</a> framework for building effecient and scalable server-side applications.</p>
+<p align="center">Typed form decoding, binding, validation, and HTML rendering for modern PHP applications.</p>
 
-## Description
-Assegai is a framework for building efficient, scalable <a href="https://php.net" target="blank">PHP</a> server-side applications. It uses modern PHP (PHP 8.4+) and combines elements of OOP (Object Oriented Programming) and FP (Functional Programming).
-## Overview
-The AssegaiPHP Forms Library is a powerful and flexible tool for managing HTML forms submitted using POST, PUT, or PATCH requests. This library is designed to simplify the process of handling form data, validation, and submission in PHP web applications. It provides a clean and intuitive interface for creating, processing, and validating forms, making it easier for developers to build robust and secure web applications.
+# AssegaiPHP Forms
+
+`assegaiphp/forms` manages HTML forms submitted through GET, POST, PUT, or PATCH requests. It provides typed form controls, submitted-data decoding and binding, server-side validation, and HTML rendering. The package integrates with AssegaiPHP but remains focused on forms rather than the framework runtime.
+
+## Requirements
+
+- PHP 8.4 or newer
 
 ## Contribution workflow
 
@@ -38,7 +41,7 @@ composer run hooks:install
 - **Validation:** Define validation rules for form fields and perform server-side validation effortlessly.
 - **Error Handling:** Automatically retrieve validation errors for form fields.
 - **Customization:** Highly customizable rendering and extending capabilities.
-- **Compatibility:** Works well with modern PHP applications and follows best practices.
+- **Compatibility:** Integrates with AssegaiPHP and can be used in other modern PHP applications.
 ## Installation
 You can install the AssegaiPHP Forms Library using [Composer](https://getcomposer.org/):
 ```bash
@@ -147,7 +150,7 @@ $form = new Form(selector: '.form-class1.form-class2');
 // Set the form action URL
 $form = new Form(selector: '/submit-form');
 ```
-For more detailed usage and customization options, please refer to the [Documentation](docs/README.md).
+For framework integration guidance, see the [AssegaiPHP guide](https://assegaiphp.com/guide).
 ## Contributing
 We welcome contributions from the community! If you'd like to contribute to the AssegaiPHP Forms Library, please follow our [Contribution Guidelines](CONTRIBUTING.md).
 ## License

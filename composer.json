@@ -1,6 +1,6 @@
 {
     "name": "assegaiphp/forms",
-    "description": "A simple PHP library for dealing with HTML form submissions.",
+    "description": "Typed form decoding, binding, validation, and HTML rendering for modern PHP applications.",
     "type": "library",
     "license": "MIT",
     "autoload": {
