@@ -45,7 +45,7 @@ composer run hooks:install
 ## Installation
 You can install the AssegaiPHP Forms Library using [Composer](https://getcomposer.org/):
 ```bash
-composer require assegaiphp/forms
+composer require 'assegaiphp/forms:~0.11.0'
 ```
 ## Quick Start
 1. **Create a Form:**
